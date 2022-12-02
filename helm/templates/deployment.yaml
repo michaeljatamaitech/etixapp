@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}-deployment
+  namespace: {{ .Values.app.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  replicas: {{ .Values.app.replicas }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }} 
+      labels:
+        app: {{ .Values.app.name }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: {{ .Values.app.container.image }}
+          imagePullPolicy: {{ .Values.app.container.image_Pull_Policy }}
+          resources:
+           {{- toYaml .Values.app.computerc | nindent 12 }}
+          ports:
+            - containerPort: {{ .Values.app.container.port }}
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: {{ .Values.app.asp_env }}
+          readinessProbe:
+            httpGet:
+                path: /health/readiness
+                port: 80
+            initialDelaySeconds: 10
+            timeoutSeconds: 30
+            periodSeconds: 60
+            successThreshold: 1
+            failureThreshold: 5
+          livenessProbe:
+              httpGet:
+                  path: /health/liveness
+                  port: 80
+              initialDelaySeconds: 10
+              timeoutSeconds: 5
+              periodSeconds: 15
+              successThreshold: 1
+              failureThreshold: 3
+          volumeMounts:
+            - name: appsettings-configmap
+              mountPath: /app/appsettings.json
+              subPath: appsettings.json
+            - name: appsettings-secret
+              mountPath: /app/appsettings.secrets.json
+              subPath: appsettings.secrets.json
+      volumes:
+        - name: appsettings-configmap
+          configMap:
+            name: {{ .Values.app.name }}-configmap
+        - name: appsettings-secret
+          secret:
+            secretName: {{ .Values.app.name }}-secret

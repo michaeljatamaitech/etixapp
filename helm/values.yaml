@@ -11,10 +11,10 @@ app:
   asp_env: Development
   
   # pods replicas
-  replicas: 1  
+  replicas: 3  
   
   container:
-    image: "harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0"   
+    image: "harbor.corp.det.gov.ae/eticketing.io/apps/authapi@sha256:4a954f75dc5a56f7602d6b6888eff2bd2ed0c02ba3225bb5e61a25b4c20e440c"   
     image_Pull_Policy: IfNotPresent 
     port: 3021
     
