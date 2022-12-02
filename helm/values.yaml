@@ -1,0 +1,37 @@
+# Default values for authapi cluster.
+# This is a YAML-formatted file.
+# Declare variables to be passed into the templates.
+
+app:
+  namespace: etixqa
+  name: authapi-helmchart  
+  env: qa
+  
+  # default asp.netcore environment configuration
+  asp_env: Development
+  
+  # pods replicas
+  replicas: 1  
+  
+  container:
+    image: "harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0"   
+    image_Pull_Policy: IfNotPresent 
+    port: 3021
+    
+  computerc:
+    limits:
+      cpu: "1000m"
+      memory: "8Gi"
+    requests:
+      cpu: "1000m"
+      memory: "8Gi"
+      
+  service:
+    port: 80
+    targetPort: 80
+
+config:
+  name: appsettings.json
+  
+secret:
+  name: appsettings.secrets.json
