@@ -1,0 +1,6 @@
+defaultNamespace: etixqa
+helm:
+  chart: https://harbor.corp.det.gov.ae/chartrepo/eticketing.io/charts/authapi-1.0.0.tgz
+  releaseName: etixqa-authapi
+  valuesFiles:    
+  - values.yaml
