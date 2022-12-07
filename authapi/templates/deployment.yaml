@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: authapi
-        image: hello-world
+        image: hello-world-notfund
         ports:
         - containerPort: 8080
         resources:
