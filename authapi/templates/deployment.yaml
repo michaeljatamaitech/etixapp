@@ -1,27 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app.name }}-deployment
-  namespace: {{ .Values.app.namespace }}
+  name: authapi-deployment
+  labels:
+    app: authapi
 spec:
   selector:
     matchLabels:
-      app: {{ .Values.app.name }}
-  replicas: {{ .Values.app.replicas }}
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
+      app: authapi
   template:
     metadata:
       labels:
-        app: {{ .Values.app.name }}
+        app: authapi
     spec:
       containers:
-        - name: {{ .Values.app.name }}
-          image: {{ .Values.app.container.image }}
-          imagePullPolicy: {{ .Values.app.container.image_Pull_Policy }}
-          resources:
-           {{- toYaml .Values.app.computerc | nindent 12 }}
-          ports:
-            - containerPort: {{ .Values.app.container.port }}
+      - name: authapi
+        image: hello-world
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 200m

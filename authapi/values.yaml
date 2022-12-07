@@ -4,7 +4,7 @@
 
 app:
   namespace: etixqa
-  name: authapi-helmchart  
+  name: authapi
   env: qa
   
   # default asp.netcore environment configuration
