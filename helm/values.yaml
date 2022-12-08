@@ -14,7 +14,7 @@ app:
   replicas: 1  
   
   container:
-    image: harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0
+    image: atmetix.azurecr.io/authapi:66
     image_Pull_Policy: IfNotPresent 
     port: 3021
     

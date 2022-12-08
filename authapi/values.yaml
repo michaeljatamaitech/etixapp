@@ -4,7 +4,7 @@
 
 app:
   namespace: etixqa
-  name: authapi
+  name: etixapp
   env: qa
   
   # default asp.netcore environment configuration
@@ -14,16 +14,16 @@ app:
   replicas: 1  
   
   container:
-    image: hello-world
+    image: harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0
     image_Pull_Policy: IfNotPresent 
     port: 3021
     
   computerc:
     limits:
-      cpu: 1
-      memory: 1Gi
+      cpu: 0.2
+      memory: "512Mi"
     requests:
-      cpu: 1
+      cpu: 0.2
       memory: "512Mi"
       
   service:
