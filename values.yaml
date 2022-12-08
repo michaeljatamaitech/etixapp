@@ -3,7 +3,6 @@
 # Declare variables to be passed into the templates.
 
 app:
-  namespace: etixqa
   name: etixapp
   env: qa
   
