@@ -3,7 +3,6 @@
 # Declare variables to be passed into the templates.
 
 app:
-  namespace: etixqa
   name: etixapp
   env: qa
   
@@ -14,9 +13,9 @@ app:
   replicas: 1  
   
   container:
-    image: atmetix.azurecr.io/authapi:66
+    image: harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0
     image_Pull_Policy: IfNotPresent 
-    port: 3021
+    port: 80
     
   computerc:
     limits:

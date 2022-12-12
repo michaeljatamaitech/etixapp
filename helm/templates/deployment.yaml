@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.app.name }}-deployment
-  namespace: {{ .Values.app.namespace }}
 spec:
   selector:
     matchLabels:
@@ -32,22 +31,24 @@ spec:
               value: {{ .Values.app.asp_env }}
           readinessProbe:
             httpGet:
-                path: /health/readiness
-                port: 80
-            initialDelaySeconds: 10
-            timeoutSeconds: 30
-            periodSeconds: 60
+              path: /health/readiness
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 10
             successThreshold: 1
-            failureThreshold: 5
+            failureThreshold: 3
           livenessProbe:
-              httpGet:
-                  path: /health/liveness
-                  port: 80
-              initialDelaySeconds: 10
-              timeoutSeconds: 5
-              periodSeconds: 15
-              successThreshold: 1
-              failureThreshold: 3
+            httpGet:
+              path: /health/liveness
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
           volumeMounts:
             - name: appsettings-configmap
               mountPath: /app/appsettings.json

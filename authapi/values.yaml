@@ -3,7 +3,6 @@
 # Declare variables to be passed into the templates.
 
 app:
-  namespace: etixqa
   name: etixapp
   env: qa
   
@@ -16,14 +15,14 @@ app:
   container:
     image: harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0
     image_Pull_Policy: IfNotPresent 
-    port: 3021
+    port: 80
     
   computerc:
     limits:
-      cpu: 0.2
+      cpu: 1
       memory: "512Mi"
     requests:
-      cpu: 0.2
+      cpu: 1
       memory: "512Mi"
       
   service:
