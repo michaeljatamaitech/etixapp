@@ -14,7 +14,7 @@ app:
   
   container:
     image: harbor.corp.det.gov.ae/eticketing.io/apps/authapi:1.0.0
-    image_Pull_Policy: IfNotPresent 
+    image_Pull_Policy: Always 
     port: 80
     
   computerc:
